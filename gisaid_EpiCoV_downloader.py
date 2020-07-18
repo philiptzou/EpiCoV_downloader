@@ -203,7 +203,7 @@ def download_gisaid_EpiCoV(
         waiting_sys_timer(wait)
 
         fn = wait_downloaded_filename(wait, driver, 3600)
-        print(f"Downloaded to {fn}.")
+        print(f"Downloaded to {fn}.                     ")
 
         waiting_sys_timer(wait)
 
@@ -213,7 +213,7 @@ def download_gisaid_EpiCoV(
         dl_button.click()
 
         fn = wait_downloaded_filename(wait, driver, 1800)
-        print(f"Downloaded to {fn}.")
+        print(f"Downloaded to {fn}.                     ")
 
         waiting_sys_timer(wait)
 
@@ -555,12 +555,15 @@ def wait_downloaded_filename(wait, driver, waitTime=180):
     endTime = time.time()+waitTime
     while True:
         try:
-            progress = driver.execute_script("return document.querySelector('.downloadContainer progress:first-of-type').value")
+            # progress = driver.execute_script("return document.querySelector('.downloadContainer progress:first-of-type').value")
+            progress = driver.execute_script("return document.querySelector('.downloadContainer description.downloadDetails.downloadDetailsNormal').value")
             fileName = driver.execute_script("return document.querySelector('.downloadContainer description:first-of-type').value")
+            print("{}: {}".format(fileName, progress), end='\r')
 
-            while progress < 100:
+            while " left" in progress:
                 time.sleep(1)
-                progress = driver.execute_script("return document.querySelector('.downloadContainer progress:first-of-type').value")
+                progress = driver.execute_script("return document.querySelector('.downloadContainer description.downloadDetails.downloadDetailsNormal').value")
+                print("{}: {}                  ".format(fileName, progress), end='\r')
 
             driver.close()
             driver.switch_to.window(driver.window_handles[0])

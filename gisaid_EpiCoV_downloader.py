@@ -202,7 +202,7 @@ def download_gisaid_EpiCoV(
         dl_button.click()
         waiting_sys_timer(wait)
 
-        fn = wait_downloaded_filename(wait, driver, 180)
+        fn = wait_downloaded_filename(wait, driver, 3600)
         print(f"Downloaded to {fn}.")
 
         waiting_sys_timer(wait)
@@ -212,7 +212,7 @@ def download_gisaid_EpiCoV(
             (By.XPATH, '//div[contains(text(), "nextmeta")]')))
         dl_button.click()
 
-        fn = wait_downloaded_filename(wait, driver, 180)
+        fn = wait_downloaded_filename(wait, driver, 1800)
         print(f"Downloaded to {fn}.")
 
         waiting_sys_timer(wait)
